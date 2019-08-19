@@ -1,8 +1,20 @@
 # List
 
-Well tested 'is number' checks, that can include number-like strings, and non-finite values as desired.
+Well tested 'is number' checks, that can accept number-like strings, and non-finite values as desired.
 
-After seeing too many confusing 'is number' checks on stackoverflow, and in other libraries, it seemed worthwhile to test some.
+There are a lot of `is number` tests out there. Many of them don't work quite right. Others use a different
+definition of `is number` than you might want. So after spending way too much time for such a simple thing,
+here are four checks:
+
+|Function        |number literals|number-like strings|Infinity and NaN|Infinity and NaN strings|other strings|
+|----------------|---------------|-------------------|----------------|------------------------|-------------|
+|isNumeric       |true           |true               |true            |true                    |false        |
+|isNumber        |true           |false              |true            |false                   |false        |
+|isFiniteNumeric |true           |true               |false           |false                   |false        |
+|isFiniteNumber  |true           |false              |false           |false                   |false        |
+
+If you want to get really crazy with number validation, you might check out a full fledged validation library like
+[ow](https://github.com/sindresorhus/ow) or [ow-lite](https://github.com/transitive-bullshit/ow-lite).
 
 ## Table of Contents
 
@@ -40,7 +52,11 @@ Or for the full version:
 <script src="https://unpkg.com/@toolbuilder%2fisnumber/umd/isnumber.js"></script>
 ```
 
-Both packages create a global variable representing the list as `IsNumber`.
+Both packages create a global object called `IsNumber`, with the checks as members.
+
+```javascript
+IsNumber.isFiniteNumeric("1.23")
+```
 
 ## Getting Started
 
@@ -55,10 +71,11 @@ console.log(isNumber('1.234')) // false
 console.log(isFiniteNumber(-Infinity)) // false
 ```
 
-To access the ES module directly with no [esm](https://www.npmjs.com/package/esm) dependency, use this import:
+To access the ES module directly with no [esm](https://www.npmjs.com/package/esm) dependency, use this 
+import:
 
 ```javascript
-import { isNumeric } from '@toolbuilder/isnumeric/src/isnumeric.js'
+import { isNumeric, isFiniteNumeric } from '@toolbuilder/isnumeric/src/isnumeric.js'
 ```
 
 ## API
@@ -161,7 +178,7 @@ Returns **[boolean][1]** true if is a finite number, false otherwise
 
 Contributions are welcome. Please create a pull request. Linting with [standard](https://standardjs.com/), version 13.1.0.
 
-I use [pnpm](https://pnpm.js.org/) as the package manager, which is why you see `pnpm-lock.yaml` instead of npm lock files.
+I use [pnpm](https://pnpm.js.org/) instead of npm, which is why you see `pnpm-lock.yaml` instead of npm lock files.
 
 ## Issues
 
@@ -170,7 +187,8 @@ This project uses Github issues.
 ## Credits
 
 The `isFiniteNumeric` implementation, and the most of the tests were copied from this
-[site](http://run.plnkr.co/plunks/93FPpacuIcXqqKMecLdk/), which was mentioned on Stack Overflow. Thanks!
+[site](http://run.plnkr.co/plunks/93FPpacuIcXqqKMecLdk/). I found these tests on Stack Overflow
+in an [answer](https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric) by 'CMS'. Thanks!
 
 ## License
 

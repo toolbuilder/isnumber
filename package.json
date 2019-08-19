@@ -1,6 +1,6 @@
 {
   "name": "@toolbuilder/isnumber",
-  "version": "0.1.0-rc0",
+  "version": "0.1.0",
   "description": "Well tested 'is number' checks, that can include number-like strings, and non-finite values as desired",
   "main": "index.js",
   "module": "src/isnumber.js",

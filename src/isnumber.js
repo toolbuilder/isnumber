@@ -42,7 +42,7 @@ export const isNumeric = (n) =>
  * isFiniteNumber(NaN) // false
  * isFiniteNumber('1.23') // false
  */
-export const isFiniteNumber = (n) => isNumber(n) && isFinite(n)
+export const isFiniteNumber = (n) => Number.isFinite(n)
 
 /**
  * Test if n is a finite number, or string that parses to a finite number.
@@ -57,4 +57,4 @@ export const isFiniteNumber = (n) => isNumber(n) && isFinite(n)
  * isFiniteNumeric('1.23') // true
  * isFiniteNumeric('hi') // false
  */
-export const isFiniteNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n)
+export const isFiniteNumeric = (n) => !Number.isNaN(parseFloat(n)) && isFinite(n)
