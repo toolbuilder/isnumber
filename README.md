@@ -1,4 +1,4 @@
-# List
+# IsNumber
 
 Well tested 'is number' checks, that can accept number-like strings, and non-finite values as desired.
 
@@ -23,7 +23,7 @@ If you want to get really crazy with number validation, you might check out a fu
 * [Installation](#installation)
 * [Getting Started](#getting-started)
 * [API](#api)
-  * [isNumber](#isnumber)
+  * [isNumber](#isnumber-1)
   * [isNumeric](#isnumeric)
   * [isFiniteNumber](#isfinitenumber)
   * [isFiniteNumeric](#isfinitenumeric)
@@ -60,7 +60,7 @@ IsNumber.isFiniteNumeric("1.23")
 
 ## Getting Started
 
-To access as the Node version, use this import:
+This is the CommonJS import:
 
 ```javascript
 const { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } = require('@toolbuilder/isnumber')
@@ -71,8 +71,14 @@ console.log(isNumber('1.234')) // false
 console.log(isFiniteNumber(-Infinity)) // false
 ```
 
-To access the ES module directly with no [esm](https://www.npmjs.com/package/esm) dependency, use this 
-import:
+To support bundling, and Node's `--experimental-modules` flag, the `package.json` file specifies the `"module"` field.
+
+```javascript
+const { isNumeric, isFiniteNumeric } from '@toolbuilder/isnumeric'
+console.log(isNumeric('1.234')) // true
+```
+
+You may also specify the ES module directly using this import:
 
 ```javascript
 import { isNumeric, isFiniteNumeric } from '@toolbuilder/isnumeric/src/isnumeric.js'
