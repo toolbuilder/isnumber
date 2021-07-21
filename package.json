@@ -17,55 +17,52 @@
     "url": "https://github.com/toolbuilder/isnumber.git"
   },
   "license": "MIT",
-  "main": "index.js",
-  "unpkg": "umd/isnumber.min.js",
+  "type": "module",
+  "exports": {
+    "import": "./src/isnumber.js",
+    "require": "./cjs/isnumber.js"
+  },
+  "main": "cjs/isnumber.js",
   "module": "src/isnumber.js",
   "directories": {
     "test": "test"
   },
   "files": [
-    "src",
-    "index.js",
-    "umd"
+    "cjs",
+    "src"
   ],
   "scripts": {
-    "build": "run-s clean build:*",
-    "build:umd": "rollup -c rollup.config.js",
-    "build:docs": "node -r esm ./scripts/docgen.js",
+    "build": "run-s build:*",
+    "build:cjs": "rollup -c rollup.config.cjs.js",
+    "build:docs": "node ./scripts/docgen.js",
     "check": "run-s build check:*",
     "check:packagejson": "npmPkgJsonLint .",
-    "check:packfile": "rollup --config node:@toolbuilder/rollup-config-pkgtest",
+    "check:packfile": "rollup -c rollup.config.test.js",
     "check:src": "eslint src test",
     "check:test": "run-s test",
     "check:uncommitted": "uncommitted",
-    "clean": "rimraf ./umd",
     "prerelease": "run-s check",
     "release": "standard-version",
-    "test": "tape -r esm \"test/*test.js\""
+    "test": "esm-tape-runner \"test/**/*test.js\""
   },
   "eslintConfig": {
     "extends": "@toolbuilder/eslint-config"
   },
-  "dependencies": {
-    "esm": "^3.2.25"
-  },
   "devDependencies": {
+    "@small-tech/esm-tape-runner": "^1.0.3",
     "@toolbuilder/eslint-config": ">=0.1.4",
     "@toolbuilder/package-json-lint-config": "^0.1.0",
-    "@toolbuilder/rollup-config-pkgtest": "^0.1.2",
-    "documentation": "^13.0.2",
-    "eslint": "^7.5.0",
-    "markedpp": "^1.0.2",
+    "@toolbuilder/rollup-plugin-test-tools": "^0.1.0",
+    "documentation": "^13.2.5",
+    "eslint": "^7.31.0",
+    "markedpp": "^1.0.3",
     "npm-package-json-lint": "^5.1.0",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.22.1",
-    "rollup-plugin-terser": "^6.1.0",
-    "standard-version": "^8.0.2",
+    "rollup": "^2.53.3",
+    "standard-version": "^9.3.1",
     "tap-nirvana": "^1.1.0",
-    "tape": "^5.0.1",
     "uncommitted": "^1.0.0",
-    "zora": "^4.0.0"
+    "zora": "^4.1.0"
   },
   "npmpackagejsonlint": {
     "extends": "@toolbuilder/package-json-lint-config"

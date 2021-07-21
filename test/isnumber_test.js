@@ -1,4 +1,4 @@
-import tape from 'tape'
+import { test } from 'zora'
 import { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } from '../src/isnumber.js'
 
 /*
@@ -35,20 +35,18 @@ var functionsToTest = [
  * @param {Function} fn - function under test
  */
 const numberLiterals = (fn) => {
-  tape(`${fn.name} integer literals`, test => {
-    test.true(fn(-16), 'Negative integer number')
-    test.true(fn(0), 'Zero integer number')
-    test.true(fn(32), 'Positive integer number')
-    test.true(fn(0o0144), 'Octal integer literal')
-    test.true(fn(0xFFF), 'Hexadecimal integer literal')
-    test.end()
+  test(`${fn.name} integer literals`, assert => {
+    assert.ok(fn(-16), 'Negative integer number')
+    assert.ok(fn(0), 'Zero integer number')
+    assert.ok(fn(32), 'Positive integer number')
+    assert.ok(fn(0o0144), 'Octal integer literal')
+    assert.ok(fn(0xFFF), 'Hexadecimal integer literal')
   })
 
-  tape(`${fn.name} floating point literals`, test => {
-    test.true(fn(-2.6), 'Negative floating point number')
-    test.true(fn(3.1415), 'Positive floating point number')
-    test.true(fn(8e5), 'Exponential notation')
-    test.end()
+  test(`${fn.name} floating point literals`, assert => {
+    assert.ok(fn(-2.6), 'Negative floating point number')
+    assert.ok(fn(3.1415), 'Positive floating point number')
+    assert.ok(fn(8e5), 'Exponential notation')
   })
 }
 
@@ -59,22 +57,20 @@ const numberLiterals = (fn) => {
  * @param {Boolean} expected - true if fn considers number-like strings to be numbers
  */
 const numberLikeStrings = (fn, expected) => {
-  tape(`${fn.name} integer strings`, test => {
-    test.equals(fn('-10'), expected, 'Negative integer string')
-    test.equals(fn('0'), expected, 'Zero string')
-    test.equals(fn('5'), expected, 'Positive integer string')
-    test.equals(fn('040'), expected, 'Octal integer literal string')
-    test.equals(fn('0xFF'), expected, 'Hexadecimal integer literal string')
-    test.equals(fn('05'), expected, 'Zero padded integer string')
-    test.end()
+  test(`${fn.name} integer strings`, assert => {
+    assert.equals(fn('-10'), expected, 'Negative integer string')
+    assert.equals(fn('0'), expected, 'Zero string')
+    assert.equals(fn('5'), expected, 'Positive integer string')
+    assert.equals(fn('040'), expected, 'Octal integer literal string')
+    assert.equals(fn('0xFF'), expected, 'Hexadecimal integer literal string')
+    assert.equals(fn('05'), expected, 'Zero padded integer string')
   })
 
-  tape(`${fn.name} floating point strings`, test => {
-    test.equals(fn('-1.6'), expected, 'Negative floating point string')
-    test.equals(fn('4.536'), expected, 'Positive floating point string')
-    test.equals(fn('123e-2'), expected, 'Exponential notation string')
-    test.equals(fn('04.345'), expected, 'Zero padded positive floating point string')
-    test.end()
+  test(`${fn.name} floating point strings`, assert => {
+    assert.equals(fn('-1.6'), expected, 'Negative floating point string')
+    assert.equals(fn('4.536'), expected, 'Positive floating point string')
+    assert.equals(fn('123e-2'), expected, 'Exponential notation string')
+    assert.equals(fn('04.345'), expected, 'Zero padded positive floating point string')
   })
 }
 
@@ -84,13 +80,12 @@ const numberLikeStrings = (fn, expected) => {
  * @param {Boolean} expected  - true if fn considers non-finite values to be numbers
  */
 const nonFinite = (fn, expected) => {
-  tape(`${fn.name} non finite values`, test => {
-    test.equals(fn(NaN), expected, 'NaN value')
-    test.equals(fn(Infinity), expected, 'Positive Infinity primitive')
-    test.equals(fn(-Infinity), expected, 'Negative Infinity primative')
-    test.equals(fn(Number.POSITIVE_INFINITY), expected, 'Positive Infinity')
-    test.equals(fn(Number.NEGATIVE_INFINITY), expected, 'Negative Infinity')
-    test.end()
+  test(`${fn.name} non finite values`, assert => {
+    assert.equals(fn(NaN), expected, 'NaN value')
+    assert.equals(fn(Infinity), expected, 'Positive Infinity primitive')
+    assert.equals(fn(-Infinity), expected, 'Negative Infinity primative')
+    assert.equals(fn(Number.POSITIVE_INFINITY), expected, 'Positive Infinity')
+    assert.equals(fn(Number.NEGATIVE_INFINITY), expected, 'Negative Infinity')
   })
 }
 
@@ -100,11 +95,10 @@ const nonFinite = (fn, expected) => {
  * @param {Boolean} expected  - true if fn considers non-finite string values to be numbers
  */
 const nonFiniteStrings = (fn, expected) => {
-  tape(`${fn.name} non-finite strings`, test => {
-    test.equals(fn('NaN'), expected, 'NaN string')
-    test.equals(fn('Infinity'), expected, 'Positive Infinity string')
-    test.equals(fn('-Infinity'), expected, 'Negative Infinity string')
-    test.end()
+  test(`${fn.name} non-finite strings`, assert => {
+    assert.equals(fn('NaN'), expected, 'NaN string')
+    assert.equals(fn('Infinity'), expected, 'Positive Infinity string')
+    assert.equals(fn('-Infinity'), expected, 'Negative Infinity string')
   })
 }
 
@@ -113,22 +107,21 @@ const nonFiniteStrings = (fn, expected) => {
  * @param {Function} fn - function under test
  */
 const nonNumeric = (fn) => {
-  tape(`${fn.name} non-numeric strings`, test => {
-    test.equals(fn(''), false, 'Empty string')
-    test.equals(fn('        '), false, 'Whitespace characters string')
-    test.equals(fn('\t\t'), false, 'Tab characters string')
-    test.equals(fn('abcdefghijklm1234567890'), false, 'Alphanumeric character string')
-    test.equals(fn('xabcdefx'), false, 'Non-numeric character string')
-    test.equals(fn(true), false, 'Boolean true literal')
-    test.equals(fn(false), false, 'Boolean false literal')
-    test.equals(fn('bcfed5.2'), false, 'Number with preceding non-numeric characters')
-    test.equals(fn('7.2acdgs'), false, 'Number with trailling non-numeric characters')
-    test.equals(fn(undefined), false, 'Undefined value')
-    test.equals(fn(null), false, 'Null value')
-    test.equals(fn(new Date(2009, 1, 1)), false, 'Date object')
-    test.equals(fn({}), false, 'Empty object')
-    test.equals(fn(function () {}), false, 'Instance of a function')
-    test.end()
+  test(`${fn.name} non-numeric strings`, assert => {
+    assert.equals(fn(''), false, 'Empty string')
+    assert.equals(fn('        '), false, 'Whitespace characters string')
+    assert.equals(fn('\t\t'), false, 'Tab characters string')
+    assert.equals(fn('abcdefghijklm1234567890'), false, 'Alphanumeric character string')
+    assert.equals(fn('xabcdefx'), false, 'Non-numeric character string')
+    assert.equals(fn(true), false, 'Boolean true literal')
+    assert.equals(fn(false), false, 'Boolean false literal')
+    assert.equals(fn('bcfed5.2'), false, 'Number with preceding non-numeric characters')
+    assert.equals(fn('7.2acdgs'), false, 'Number with trailling non-numeric characters')
+    assert.equals(fn(undefined), false, 'Undefined value')
+    assert.equals(fn(null), false, 'Null value')
+    assert.equals(fn(new Date(2009, 1, 1)), false, 'Date object')
+    assert.equals(fn({}), false, 'Empty object')
+    assert.equals(fn(function () {}), false, 'Instance of a function')
   })
 }
 

@@ -13,9 +13,6 @@ here are four checks:
 |isFiniteNumeric |true           |true               |false           |false                   |false        |
 |isFiniteNumber  |true           |false              |false           |false                   |false        |
 
-If you want to get really crazy with number validation, you might check out a full fledged validation library like
-[ow](https://github.com/sindresorhus/ow) or [ow-lite](https://github.com/transitive-bullshit/ow-lite).
-
 ## Table of Contents
 
 <!-- !toc (minlevel=2 omit="Features;Table of Contents") -->
@@ -27,9 +24,9 @@ If you want to get really crazy with number validation, you might check out a fu
   * [isNumeric](#isnumeric)
   * [isFiniteNumber](#isfinitenumber)
   * [isFiniteNumeric](#isfinitenumeric)
+* [Credits](#credits)
 * [Contributing](#contributing)
 * [Issues](#issues)
-* [Credits](#credits)
 * [License](#license)
 
 <!-- toc! -->
@@ -40,48 +37,18 @@ If you want to get really crazy with number validation, you might check out a fu
 npm install --save @toolbuilder/isnumber
 ```
 
-Access the latest UMD package from [unpkg](https://unpkg.com) like this:
-
-```html
-<script src="https://unpkg.com/@toolbuilder%2fisnumber/umd/isnumber.min.js"></script>
-```
-
-Or for the full version:
-
-```html
-<script src="https://unpkg.com/@toolbuilder%2fisnumber/umd/isnumber.js"></script>
-```
-
-Both packages create a global object called `IsNumber`, with the checks as members.
-
-```javascript
-IsNumber.isFiniteNumeric("1.23")
-```
-
 ## Getting Started
 
-This is the CommonJS import:
+This is a [dual package](https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_dual_commonjs_es_module_packages),
+so named exports are available for both CommonJS and ES modules.
 
 ```javascript
-const { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } = require('@toolbuilder/isnumber')
+import { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } from '@toolbuilder/isnumber'
 
 console.log(isNumeric('1.234')) // true
 console.log(isFiniteNumeric(42.54)) // true
 console.log(isNumber('1.234')) // false
 console.log(isFiniteNumber(-Infinity)) // false
-```
-
-To support bundling, and Node's `--experimental-modules` flag, the `package.json` file specifies the `"module"` field.
-
-```javascript
-const { isNumeric, isFiniteNumeric } from '@toolbuilder/isnumeric'
-console.log(isNumeric('1.234')) // true
-```
-
-You may also specify the ES module directly using this import:
-
-```javascript
-import { isNumeric, isFiniteNumeric } from '@toolbuilder/isnumeric/src/isnumeric.js'
 ```
 
 ## API
@@ -99,7 +66,7 @@ Includes Infinities and NaN, does not include strings that look like numbers
 
 #### Parameters
 
-- `n` **any** value to test
+* `n` **any** value to test
 
 #### Examples
 
@@ -120,7 +87,7 @@ Non-finite strings are: 'Infinity', '-Infinity', and 'NaN'.
 
 #### Parameters
 
-- `n` **any** value to test
+* `n` **any** value to test
 
 #### Examples
 
@@ -142,7 +109,7 @@ Does not include infinities, NaN, or strings that look like numbers.
 
 #### Parameters
 
-- `n` **any** value to test
+* `n` **any** value to test
 
 #### Examples
 
@@ -163,7 +130,7 @@ Does not include infinities, NaN
 
 #### Parameters
 
-- `n` **any** value to test
+* `n` **any** value to test
 
 #### Examples
 
@@ -180,32 +147,28 @@ Returns **[boolean][1]** true if is a finite number, false otherwise
 [1]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 <!-- /include -->
 
-## Contributing
-
-Contributions are welcome. Please create a pull request. Linting with [standard](https://standardjs.com/), version 13.1.0.
-
-I use [pnpm](https://pnpm.js.org/) instead of npm, which is why you see `pnpm-lock.yaml` instead of npm lock files.
-
-## Issues
-
-This project uses Github issues.
-
 ## Credits
 
 The `isFiniteNumeric` implementation, and the most of the tests were copied from this
 [site](http://run.plnkr.co/plunks/93FPpacuIcXqqKMecLdk/). I found these tests on Stack Overflow
 in an [answer](https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric) by 'CMS'. Thanks!
 
+## Contributing
+
+Contributions are welcome. Please create a pull request.
+
+* I use [pnpm](https://pnpm.js.org/) instead of npm.
+* Run the unit tests with `pnpm test`
+* Package verification requires [pnpm](https://pnpm.io/) to be installed globally.
+  * `npm install -g pnpm`
+  * `pnpm install`
+  * `pnpm run check:packfile` to test against ES and CommonJS projects
+  * `pnpm run check` to validate the package is ready for commit
+
+## Issues
+
+This project uses Github issues.
+
 ## License
 
-<!-- include (LICENSE) -->
-The MIT License (MIT)
-
-Copyright 2020 toolbuilder
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-<!-- /include -->
+MIT
