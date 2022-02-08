@@ -18,6 +18,7 @@
   },
   "license": "MIT",
   "type": "module",
+  "types": "./src/isnumber.d.ts",
   "exports": {
     "import": "./src/isnumber.js",
     "require": "./cjs/isnumber.js"
