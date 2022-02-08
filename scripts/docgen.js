@@ -16,9 +16,15 @@ const apiGen = async function (filename) {
     .map(line => {
     // documentation.js is creating a link to MDN DOM Node, so need to fix
       return line
+        .replace(/[#]+ Parameters/, 'Parameters:') // deal with excessively deep nestings
+        .replace(/[#]+ Examples/, '') // deal with excessively deep nestings
+        // Provide links to common types
         .replace('**[Node][1]**', '[Node](#node)')
-        .replace('**Generator**', '[Generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)')
-        .replace('**Iterable**', '[Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)')
+        .replace('Generator', '[Generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)')
+        .replace('IterableIterator<', '[IterableIterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)<')
+        .replace('IterableIterator\\<', '[IterableIterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)\\<')
+        .replace('Iterable<', '[Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)<')
+        .replace('Iterable\\<', '[Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)\\<')
     })
     .join('\n')
 }

@@ -4,6 +4,7 @@ const isString = (item) => typeof item === 'string' || item instanceof String
  * Test if n is a number.
  *
  * Includes Infinities and NaN, does not include strings that look like numbers
+ * @type {(n: any) => boolean}
  * @param {any} n - value to test
  * @returns {boolean} - true if is number, false otherwise
  * @example
@@ -18,6 +19,7 @@ export const isNumber = (n) => (typeof n === 'number' || n instanceof Number)
  * Test if n is a number, or string that parses to a number. Includes infinities and NaN.
  *
  * Non-finite strings are: 'Infinity', '-Infinity', and 'NaN'.
+ * @type {(n: any) => boolean}
  * @param {any} n - value to test
  * @returns {boolean} - true if is numeric, false otherwise
  * @example
@@ -34,6 +36,7 @@ export const isNumeric = (n) =>
  * Test if n is a finite number.
  *
  * Does not include infinities, NaN, or strings that look like numbers.
+ * @type {(n: any) => boolean}
  * @param {any} n - value to test
  * @return {boolean} - true if is a finite number, false otherwise
  * @example
@@ -48,6 +51,7 @@ export const isFiniteNumber = (n) => Number.isFinite(n)
  * Test if n is a finite number, or string that parses to a finite number.
  *
  * Does not include infinities, NaN
+ * @type {(n: any) => boolean}
  * @param {any} n - value to test
  * @returns {boolean} - true if is a finite number, false otherwise
  * @example

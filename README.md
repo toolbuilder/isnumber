@@ -45,9 +45,9 @@ so named exports are available for both CommonJS and ES modules.
 ```javascript
 import { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } from '@toolbuilder/isnumber'
 
-console.log(isNumeric('1.234')) // true
+console.log(isNumeric('1.234')) // true because it looks like a number
 console.log(isFiniteNumeric(42.54)) // true
-console.log(isNumber('1.234')) // false
+console.log(isNumber('1.234')) // false because it is a string
 console.log(isFiniteNumber(-Infinity)) // false
 ```
 
@@ -64,11 +64,11 @@ Test if n is a number.
 
 Includes Infinities and NaN, does not include strings that look like numbers
 
-#### Parameters
+Parameters:
 
 * `n` **any** value to test
 
-#### Examples
+
 
 ```javascript
 isNumber(1.23) // true
@@ -85,11 +85,11 @@ Test if n is a number, or string that parses to a number. Includes infinities an
 
 Non-finite strings are: 'Infinity', '-Infinity', and 'NaN'.
 
-#### Parameters
+Parameters:
 
 * `n` **any** value to test
 
-#### Examples
+
 
 ```javascript
 isNumeric(1.23) // true
@@ -107,11 +107,11 @@ Test if n is a finite number.
 
 Does not include infinities, NaN, or strings that look like numbers.
 
-#### Parameters
+Parameters:
 
 * `n` **any** value to test
 
-#### Examples
+
 
 ```javascript
 isFiniteNumber(1.23) // true
@@ -128,11 +128,11 @@ Test if n is a finite number, or string that parses to a finite number.
 
 Does not include infinities, NaN
 
-#### Parameters
+Parameters:
 
 * `n` **any** value to test
 
-#### Examples
+
 
 ```javascript
 isFiniteNumeric(1.23) // true
@@ -162,7 +162,8 @@ Contributions are welcome. Please create a pull request.
 * Package verification requires [pnpm](https://pnpm.io/) to be installed globally.
   * `npm install -g pnpm`
   * `pnpm install`
-  * `pnpm run check:packfile` to test against ES and CommonJS projects
+  * `pnpm build` to build cjs, docs, and *.d.ts
+  * `pnpm run check:packfile` to test against ES and CommonJS projects, as well as Electron
   * `pnpm run check` to validate the package is ready for commit
 
 ## Issues

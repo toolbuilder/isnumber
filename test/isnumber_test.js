@@ -4,7 +4,7 @@ import { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } from '../src/isn
 /*
 Tests and functions to test copied from http://run.plnkr.co/plunks/93FPpacuIcXqqKMecLdk/
 Original only tested isFiniteNumeric functionality, so refactored to test other notions
-of 'number like' and to use ES modules, tape, and standard.js coding standards, etc.
+of 'number like' and to use ES modules, zora, and eslint coding standards, etc.
 
 These are refactored isFiniteNumeric implementations from the above link.
 Apparently all these implementations are broken in some way.
@@ -31,8 +31,19 @@ var functionsToTest = [
 */
 
 /**
+ * All the is* functions that we're testing have this signature.
+ * Don't use a union of them so that we test the d.ts mapping
+ * @typedef {(n: any) => boolean} NumberCheck
+ */
+
+/**
+ * A grouping of test cases where NumberCheck should return the expected value
+ * @typedef {(fn: NumberCheck, expected: boolean) => void} TestFunction
+ */
+
+/**
  * Test that all varieties of numeric literal pass.
- * @param {Function} fn - function under test
+ * @param {NumberCheck} fn - function under test
  */
 const numberLiterals = (fn) => {
   test(`${fn.name} integer literals`, assert => {
@@ -53,8 +64,10 @@ const numberLiterals = (fn) => {
 /**
  * Test that strings that look like numbers are handled as expected.
  *
- * @param {Function} fn - function under test
- * @param {Boolean} expected - true if fn considers number-like strings to be numbers
+ * @type {TestFunction}
+ * @param {NumberCheck} fn - function under test
+ * @param {boolean} expected - true if fn considers number-like strings to be numbers
+ * @returns {void}
  */
 const numberLikeStrings = (fn, expected) => {
   test(`${fn.name} integer strings`, assert => {
@@ -76,8 +89,9 @@ const numberLikeStrings = (fn, expected) => {
 
 /**
  * Test that non-finite values are handled as expected.
- * @param {Function} fn - function under test
- * @param {Boolean} expected  - true if fn considers non-finite values to be numbers
+ * @type {TestFunction}
+ * @param {NumberCheck} fn - function under test
+ * @param {boolean} expected  - true if fn considers non-finite values to be numbers
  */
 const nonFinite = (fn, expected) => {
   test(`${fn.name} non finite values`, assert => {
@@ -91,8 +105,9 @@ const nonFinite = (fn, expected) => {
 
 /**
  * Test that strings that look like non-finite values are handled as expected.
- * @param {Function} fn - function under test
- * @param {Boolean} expected  - true if fn considers non-finite string values to be numbers
+ * @type {TestFunction}
+ * @param {NumberCheck} fn - function under test
+ * @param {boolean} expected  - true if fn considers non-finite string values to be numbers
  */
 const nonFiniteStrings = (fn, expected) => {
   test(`${fn.name} non-finite strings`, assert => {
@@ -104,7 +119,7 @@ const nonFiniteStrings = (fn, expected) => {
 
 /**
  * Test that non-numeric values are not considered numbers.
- * @param {Function} fn - function under test
+ * @param {NumberCheck} fn - function under test
  */
 const nonNumeric = (fn) => {
   test(`${fn.name} non-numeric strings`, assert => {
@@ -126,26 +141,30 @@ const nonNumeric = (fn) => {
 }
 
 /**
+ * @typedef {[TestFunction, boolean]} TestCase
+ */
+/**
+ * @typedef {[NumberCheck, TestCase[]]} NumberCheckTest
+ */
+/**
  * Test specifications for each function.
- * - first element is the function under test
- * - following elements are [fn, expected] pairs. Where fn is the test function, and
- * expected is the 'expected' parameter to the function
+ * @type {NumberCheckTest[]}
  */
 const tests = [
-  [isNumber, [nonFinite, true], [nonFiniteStrings, false], [numberLikeStrings, false]],
-  [isNumeric, [nonFinite, true], [nonFiniteStrings, true], [numberLikeStrings, true]],
-  [isFiniteNumber, [nonFinite, false], [nonFiniteStrings, false], [numberLikeStrings, false]],
-  [isFiniteNumeric, [nonFinite, false], [nonFiniteStrings, false], [numberLikeStrings, true]]
+  [isNumber, [[nonFinite, true], [nonFiniteStrings, false], [numberLikeStrings, false]]],
+  [isNumeric, [[nonFinite, true], [nonFiniteStrings, true], [numberLikeStrings, true]]],
+  [isFiniteNumber, [[nonFinite, false], [nonFiniteStrings, false], [numberLikeStrings, false]]],
+  [isFiniteNumeric, [[nonFinite, false], [nonFiniteStrings, false], [numberLikeStrings, true]]]
 ]
 
 /**
  * Run the tests specified just above.
  */
 tests.forEach(testData => {
-  const fn = testData[0] // function under test
+  const [fn, testCases] = testData // function under test
   numberLiterals(fn)
   nonNumeric(fn)
-  testData.slice(1).forEach(test => {
+  testCases.forEach(test => {
     const [testFunction, expected] = test
     testFunction(fn, expected)
   })
