@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@small-tech/esm-tape-runner': ^1.0.3
   '@toolbuilder/eslint-config': '>=0.1.5'
   '@toolbuilder/package-json-lint-config': ^0.1.0
   '@toolbuilder/rollup-plugin-test-tools': ^1.0.0
@@ -10,6 +9,7 @@ specifiers:
   markedpp: ^1.0.4
   npm-package-json-lint: ^5.4.2
   npm-run-all: ^4.1.5
+  pta: ^1.0.2
   rollup: ^2.67.1
   standard-version: ^9.3.2
   tap-nirvana: ^1.1.0
@@ -17,7 +17,6 @@ specifiers:
   zora: ^5.0.3
 
 devDependencies:
-  '@small-tech/esm-tape-runner': 1.0.3
   '@toolbuilder/eslint-config': 0.1.5
   '@toolbuilder/package-json-lint-config': 0.1.0_npm-package-json-lint@5.4.2
   '@toolbuilder/rollup-plugin-test-tools': 1.0.0_rollup@2.67.1
@@ -26,6 +25,7 @@ devDependencies:
   markedpp: 1.0.4
   npm-package-json-lint: 5.4.2
   npm-run-all: 4.1.5
+  pta: 1.0.2_zora@5.0.3
   rollup: 2.67.1
   standard-version: 9.3.2
   tap-nirvana: 1.1.0
@@ -353,13 +353,6 @@ packages:
       rollup: 2.67.1
     dev: true
 
-  /@small-tech/esm-tape-runner/1.0.3:
-    resolution: {integrity: sha512-2r8pC/Yqda/m9md/fXhCD4d+2gZ3euAfl5FSHJJodWmIOZT+sgDrL+c1SYPX3GIK6TZshK3TZvcPkOEr5pE/7A==}
-    hasBin: true
-    dependencies:
-      fast-glob: 3.2.7
-    dev: true
-
   /@toolbuilder/eslint-config/0.1.5:
     resolution: {integrity: sha512-qpy26kuVl5OTbhyeYdP1BTTmAdTR6D+vDfiSivcaKdIPOPJfhsPAzeWLQoqBIFZ9iRxQk46MMHcRwrKBsQSJrQ==}
     hasBin: true
@@ -629,6 +622,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       buffer-equal: 1.0.0
+    dev: true
+
+  /arg/5.0.1:
+    resolution: {integrity: sha512-e0hDa9H2Z9AwFkk2qDlwhoMYE4eToKarchkQHovNdLTCYMHZHeRjI71crOh+dio4K6u1IcwubQqo79Ga4CyAQA==}
     dev: true
 
   /argparse/1.0.10:
@@ -1002,7 +999,6 @@ packages:
   /colorette/1.2.2:
     resolution: {integrity: sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==}
     dev: true
-    optional: true
 
   /comma-separated-tokens/1.0.8:
     resolution: {integrity: sha512-GHuDRO12Sypu2cV70d1dkA2EUmXHgntrzbpvOB+Qy+49ypNfGgFQIC2fhhXbnyrJRynDCAARsT7Ou0M6hirpfw==}
@@ -1426,6 +1422,11 @@ packages:
     engines: {node: '>=0.3.1'}
     dev: true
 
+  /diff/5.0.0:
+    resolution: {integrity: sha512-/VTCrvm5Z0JGty/BWHljh+BAiw3IK+2j87NGMu8Nwc/f48WoDAC395uomO9ZD117ZOBaHmkX1oyLvkVM/aIT3w==}
+    engines: {node: '>=0.3.1'}
+    dev: true
+
   /dir-glob/3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
@@ -1818,17 +1819,6 @@ packages:
       micromatch: 4.0.4
     dev: true
 
-  /fast-glob/3.2.7:
-    resolution: {integrity: sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@nodelib/fs.stat': 2.0.3
-      '@nodelib/fs.walk': 1.2.4
-      glob-parent: 5.1.2
-      merge2: 1.4.1
-      micromatch: 4.0.4
-    dev: true
-
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
     dev: true
@@ -2167,6 +2157,18 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       type-fest: 0.20.2
+    dev: true
+
+  /globby/11.0.4:
+    resolution: {integrity: sha512-9O4MVG9ioZJ08ffbcyVYyLOJLk5JQ688pJ4eMGLpdWLHq/Wr1D9BlriLQyL0E+jbkuePVZXYFj47QM/v093wHg==}
+    engines: {node: '>=10'}
+    dependencies:
+      array-union: 2.1.0
+      dir-glob: 3.0.1
+      fast-glob: 3.2.11
+      ignore: 5.2.0
+      merge2: 1.4.1
+      slash: 3.0.0
     dev: true
 
   /globby/11.1.0:
@@ -3919,6 +3921,18 @@ packages:
     resolution: {integrity: sha512-Fx65lf9/YDn3hUX08XUc0J8rSux36rEsyiv21ZGUC1mOyeM3lTRpZLcrm8aAolzS4itwVfm7TAPyxC2E5zd6xg==}
     dev: true
 
+  /pta/1.0.2_zora@5.0.3:
+    resolution: {integrity: sha512-SmeVdeyJAOeS5BYjuXrVjpgOMaCW1J91fasJBIg8XCKJmBPPtlLPD3tU1hn4K7Xk9kLjEwTL09rB0WUBpmQwyg==}
+    hasBin: true
+    peerDependencies:
+      zora: ^5.0.0
+    dependencies:
+      arg: 5.0.1
+      globby: 11.0.4
+      zora: 5.0.3
+      zora-reporters: 1.3.2
+    dev: true
+
   /pump/2.0.1:
     resolution: {integrity: sha512-ruPMNRkN3MHP1cWJc9OWr+T/xDP0jhXYCLfJcBuX54hhfIBnaQmAUMfDcG4DM5UMWByBbJY69QSphm3jtDKIkA==}
     dependencies:
@@ -5261,6 +5275,15 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  /zora-reporters/1.3.2:
+    resolution: {integrity: sha512-9h5wwGXOhcz5b5Jy1aUQZ4Luqxi9ZPetoxaGXr8w72tykrApV40iOiWHsSbUVGD+lEi4j0IIoj4n7IDrizUjFQ==}
+    hasBin: true
+    dependencies:
+      arg: 5.0.1
+      colorette: 1.2.2
+      diff: 5.0.0
     dev: true
 
   /zora/5.0.3:
