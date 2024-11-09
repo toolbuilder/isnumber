@@ -20,8 +20,9 @@
   "type": "module",
   "types": "./src/isnumber.d.ts",
   "exports": {
-    "import": "./src/isnumber.js",
-    "require": "./cjs/isnumber.js"
+    "require": "./cjs/isnumber.js",
+    "types": "./src/isnumber.d.ts",
+    "default": "./src/isnumber.js"
   },
   "main": "cjs/isnumber.js",
   "module": "src/isnumber.js",
@@ -40,33 +41,28 @@
     "check": "run-s build check:*",
     "check:packagejson": "npmPkgJsonLint .",
     "check:packfile": "rollup -c rollup.config.test.js",
-    "check:src": "eslint src test",
+    "check:src": "standard src test",
     "check:test": "run-s test",
-    "check:types": "tsc --allowJs --checkJs --noEmit test/isnumber_test.js",
+    "check:types": "tsc --project tsconfig.test.json",
     "check:uncommitted": "uncommitted",
     "prerelease": "run-s check",
-    "release": "standard-version",
+    "release": "commit-and-tag-version",
     "test": "pta --reporter tap \"test/**/*test.js\""
   },
-  "eslintConfig": {
-    "extends": "@toolbuilder/eslint-config"
-  },
   "devDependencies": {
-    "@toolbuilder/eslint-config": ">=0.1.5",
-    "@toolbuilder/package-json-lint-config": "^0.1.0",
-    "@toolbuilder/rollup-plugin-test-tools": "^1.0.0",
-    "documentation": "^13.2.5",
-    "eslint": "^8.8.0",
-    "markedpp": "^1.0.4",
-    "npm-package-json-lint": "^5.4.2",
-    "npm-run-all": "^4.1.5",
-    "pta": "^1.0.2",
-    "rollup": "^2.67.1",
-    "standard-version": "^9.3.2",
-    "tap-nirvana": "^1.1.0",
-    "typescript": "^4.5.5",
+    "@toolbuilder/package-json-lint-config": "^0.1.1",
+    "@toolbuilder/rollup-plugin-test-tools": "^1.1.0",
+    "commit-and-tag-version": "^12.5.0",
+    "documentation": "13.2.5",
+    "markedpp": "^1.4.0",
+    "npm-package-json-lint": "^8.0.0",
+    "npm-run-all2": "^7.0.1",
+    "pta": "1.2.0",
+    "rollup": "^4.24.4",
+    "standard": "^17.1.2",
+    "typescript": "^5.6.3",
     "uncommitted": "^1.0.0",
-    "zora": "^5.0.3"
+    "zora": "5.0.3"
   },
   "npmpackagejsonlint": {
     "extends": "@toolbuilder/package-json-lint-config"
