@@ -1,6 +1,6 @@
 {
   "name": "@toolbuilder/isnumber",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Well tested 'is number' checks, that can optionally include number-like strings, and non-finite values.",
   "keywords": [
     "number",
