@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## v1.0.0
+
+[compare changes](https://github.com/toolbuilder/isnumber/compare/v0.1.7...v1.0.0)
+
+### 🩹 Fixes
+
+- ⚠️  Handle modern JS edge cases and expand test suite ([e3e8125](https://github.com/toolbuilder/isnumber/commit/e3e8125))
+
+### 💅 Refactors
+
+- ⚠️  Modernize to pure ESM, migrate to node:test, and prune devDependencies ([285f0ba](https://github.com/toolbuilder/isnumber/commit/285f0ba))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Handle modern JS edge cases and expand test suite ([e3e8125](https://github.com/toolbuilder/isnumber/commit/e3e8125))
+- ⚠️  Modernize to pure ESM, migrate to node:test, and prune devDependencies ([285f0ba](https://github.com/toolbuilder/isnumber/commit/285f0ba))
+
+### ❤️ Contributors
+
+- Toolbuilder <k_d_hudson@yahoo.com>
+
 ## [0.1.7](https://github.com/toolbuilder/isnumber/compare/v0.1.6...v0.1.7) (2024-11-09)
 
 ### [0.1.6](https://github.com/toolbuilder/isnumber/compare/v0.1.5...v0.1.6) (2022-02-08)
