@@ -13,6 +13,13 @@ here are four checks:
 |isFiniteNumeric |true           |true               |false           |false                   |false        |
 |isFiniteNumber  |true           |false              |false           |false                   |false        |
 
+A few notes on edge cases:
+
+* **`BigInt` values return `false`**: Although `BigInt` values (e.g. `42n`) represent integers, all four functions return `false` for them. In JavaScript, `BigInt` cannot be mixed with `Number` in arithmetic (`42n + 1`), passed to `Math.*` functions, or serialized with `JSON.stringify` without throwing a `TypeError`. Additionally, `BigInt` values can exceed `Number.MAX_SAFE_INTEGER` (losing precision when coerced) or `Number.MAX_VALUE` (overflowing to `Infinity`).
+* **Overflow strings return `false`**: Numeric strings with exponents or magnitudes larger than `Number.MAX_VALUE` (e.g. `'1e309'` or `'-1e309'`) overflow IEEE-754 double precision to `Infinity` (`Number('1e309') === Infinity`). All four functions return `false` for these strings—they are not finite, and `isNumeric` only accepts explicit non-finite strings (`'Infinity'`, `'-Infinity'`, `'+Infinity'`, and `'NaN'`, with optional whitespace).
+* **Boxed primitives are supported**: `new Number(...)` and `new String(...)` instances behave the same as their primitive counterparts across all four functions.
+* **No accidental object/array coercion**: Values that coerce to numbers in loose JavaScript checks (such as single-element arrays like `[1]` or objects with custom `valueOf`/`toString` methods) and values that throw on coercion (`Symbol`, `BigInt`, `Object.create(null)`) all safely return `false`.
+
 ## Table of Contents
 
 <!-- !toc (minlevel=2 omit="Features;Table of Contents") -->
@@ -80,7 +87,7 @@ Returns **[boolean][1]** true if is number, false otherwise
 
 Test if n is a number, or string that parses to a number. Includes infinities and NaN.
 
-Non-finite strings are: 'Infinity', '-Infinity', and 'NaN'.
+Non-finite strings are: 'Infinity', '-Infinity', '+Infinity', and 'NaN'.
 
 Parameters:
 
@@ -149,6 +156,8 @@ Returns **[boolean][1]** true if is a finite number, false otherwise
 The `isFiniteNumeric` implementation, and the most of the tests were copied from this
 [site](http://run.plnkr.co/plunks/93FPpacuIcXqqKMecLdk/). I found these tests on Stack Overflow
 in an [answer](https://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric) by 'CMS'. Thanks!
+
+Additional edge-case tests and implementation refinements for modern JavaScript (`BigInt`, `Symbol`, boxed primitives, arrays, and overflow strings) were contributed by Antigravity.
 
 ## Contributing
 

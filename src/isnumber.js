@@ -1,4 +1,5 @@
 const isString = (item) => typeof item === 'string' || item instanceof String
+const nonFiniteStrings = new Set(['Infinity', '-Infinity', '+Infinity', 'NaN'])
 
 /**
  * Test if n is a number.
@@ -18,7 +19,7 @@ export const isNumber = (n) => (typeof n === 'number' || n instanceof Number)
 /**
  * Test if n is a number, or string that parses to a number. Includes infinities and NaN.
  *
- * Non-finite strings are: 'Infinity', '-Infinity', and 'NaN'.
+ * Non-finite strings are: 'Infinity', '-Infinity', '+Infinity', and 'NaN'.
  * @type {(n: any) => boolean}
  * @param {any} n - value to test
  * @returns {boolean} - true if is numeric, false otherwise
@@ -30,7 +31,7 @@ export const isNumber = (n) => (typeof n === 'number' || n instanceof Number)
  * isNumeric('hi') // false
  */
 export const isNumeric = (n) =>
-  isString(n) ? (((n === 'Infinity') || (n === '-Infinity') || (n === 'NaN')) || isFiniteNumeric(n)) : isNumber(n)
+  isString(n) ? (nonFiniteStrings.has(n.trim()) || isFiniteNumeric(n)) : isNumber(n)
 
 /**
  * Test if n is a finite number.
@@ -45,7 +46,7 @@ export const isNumeric = (n) =>
  * isFiniteNumber(NaN) // false
  * isFiniteNumber('1.23') // false
  */
-export const isFiniteNumber = (n) => Number.isFinite(n)
+export const isFiniteNumber = (n) => Number.isFinite(n instanceof Number ? n.valueOf() : n)
 
 /**
  * Test if n is a finite number, or string that parses to a finite number.
@@ -61,4 +62,8 @@ export const isFiniteNumber = (n) => Number.isFinite(n)
  * isFiniteNumeric('1.23') // true
  * isFiniteNumeric('hi') // false
  */
-export const isFiniteNumeric = (n) => !Number.isNaN(parseFloat(n)) && isFinite(n)
+export const isFiniteNumeric = (n) => {
+  if (!isString(n)) return isFiniteNumber(n)
+  const s = n.valueOf()
+  return !Number.isNaN(parseFloat(s)) && Number.isFinite(Number(s))
+}
