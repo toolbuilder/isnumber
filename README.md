@@ -39,9 +39,6 @@ npm install --save @toolbuilder/isnumber
 
 ## Getting Started
 
-This is a [dual package](https://nodejs.org/dist/latest-v14.x/docs/api/packages.html#packages_dual_commonjs_es_module_packages),
-so named exports are available for both CommonJS and ES modules.
-
 ```javascript
 import { isNumeric, isFiniteNumeric, isNumber, isFiniteNumber } from '@toolbuilder/isnumber'
 
@@ -156,15 +153,6 @@ in an [answer](https://stackoverflow.com/questions/18082/validate-decimal-number
 ## Contributing
 
 Contributions are welcome. Please create a pull request.
-
-* I use [pnpm](https://pnpm.js.org/) instead of npm.
-* Run the unit tests with `pnpm test`
-* Package verification requires [pnpm](https://pnpm.io/) to be installed globally.
-  * `npm install -g pnpm`
-  * `pnpm install`
-  * `pnpm build` to build cjs, docs, and *.d.ts
-  * `pnpm run check:packfile` to test against ES and CommonJS projects, as well as Electron
-  * `pnpm run check` to validate the package is ready for commit
 
 ## Issues
 
